@@ -3,6 +3,7 @@ title: manim-web Examples
 ---
 
 # manim-web Examples
+This document provides examples of manim animations and their syntax in myst documents.
 
 ## Basic shapes
 
