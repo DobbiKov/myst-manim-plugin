@@ -1,5 +1,8 @@
 version: 1
 project:
   title: MyST Manim Extension
+  github: https://github.com/DobbiKov/math-site
   plugins:
     - plugin.mjs
+site:
+  template: book-theme
