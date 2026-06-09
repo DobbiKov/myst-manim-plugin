@@ -1,7 +1,8 @@
 version: 1
 project:
   title: MyST Manim Extension
-  github: https://github.com/DobbiKov/math-site
+  authors: [Yehor Korotenko]
+  github: https://github.com/DobbiKov/myst-manim-plugin
   plugins:
     - plugin.mjs
 site:
