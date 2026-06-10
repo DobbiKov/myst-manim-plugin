@@ -5,5 +5,12 @@ project:
   github: https://github.com/DobbiKov/myst-manim-plugin
   plugins:
     - plugin.mjs
+  toc:
+    - file: README.md
+      name: MyST Manim Extension
+    - file: example.md
+      name: Animation Examples
+    - file: interactive-example.md
+      name: Interactive Example
 site:
   template: book-theme
