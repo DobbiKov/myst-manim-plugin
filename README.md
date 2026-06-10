@@ -7,6 +7,8 @@ documents.
 You write only the animation logic. The `scene` object, all shapes, animations,
 colors, and rate functions are already in scope — no imports, no boilerplate.
 
+See some examples of animations and the code [here](https://dobbikov.github.io/myst-manim-plugin/).
+
 ## Installation
 
 Copy **both** `plugin.mjs` and `widget.mjs` into your project and register the plugin in `myst.yml`:
