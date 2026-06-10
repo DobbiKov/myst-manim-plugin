@@ -17,35 +17,155 @@ const MANIM_CDN =
 
 /** All manim-web names we destructure into the user's animation scope. */
 const MANIM_EXPORTS = [
-  // core
-  'Scene',
-  // shapes
-  'Circle', 'Square', 'Rectangle', 'Triangle', 'Polygon', 'RegularPolygon',
-  'Ellipse', 'Arc', 'Dot', 'Line', 'Arrow',
+  // scenes
+  'Scene', 'ThreeDScene', 'MovingCameraScene', 'ZoomedScene',
+  'LinearTransformationScene', 'VectorScene', 'InteractiveScene',
+  // interactive controls
+  'Controls', 'OrbitControls',
+  // base mobjects
+  'Mobject', 'Mobject1D', 'Mobject2D',
+  'VMobject', 'VMobjectFromSVGPath', 'VectorizedPoint',
+  'PMobject', 'PointMobject', 'PointCloudDot',
+  'TipableVMobject',
+  // 2D shapes
+  'Circle', 'Dot', 'SmallDot', 'LargeDot', 'AnnotationDot', 'LabeledDot',
+  'Ellipse', 'AnnularSector', 'Annulus', 'Sector',
+  'Square', 'Rectangle', 'RoundedRectangle',
+  'Triangle', 'Polygon', 'RegularPolygon', 'Polygram', 'RegularPolygram',
+  'ArcPolygon', 'Hexagon', 'Pentagon',
+  'Star', 'Cross', 'ConvexHull',
+  'Arc', 'ArcBetweenPoints', 'TangentialArc', 'CubicBezier',
+  'Line', 'DashedLine', 'LabeledLine',
+  'Arrow', 'DoubleArrow', 'CurvedArrow', 'CurvedDoubleArrow',
+  'LabeledArrow', 'LabeledPolygram',
+  'Vector', 'ArrowVectorField', 'StreamLines',
+  'ArrowTip', 'StealthTip',
+  'ArrowCircleTip', 'ArrowCircleFilledTip',
+  'ArrowSquareTip', 'ArrowSquareFilledTip',
+  'ArrowTriangleTip', 'ArrowTriangleFilledTip',
+  'Angle', 'RightAngle', 'Elbow',
+  'Brace', 'BraceBetweenPoints', 'BraceLabel', 'BraceText', 'ArcBrace',
+  'TangentLine',
+  'DashedVMobject', 'BackgroundRectangle', 'SurroundingRectangle',
+  'ScreenRectangle', 'FullScreenRectangle', 'FullScreenFadeRectangle',
+  'Cutout', 'SVGMobject', 'ImageMobject',
+  'TracedPath', 'AnimatedBoundary',
+  'Underline',
+  // 3D shapes
+  'Sphere', 'Cube', 'Cone', 'Cylinder', 'Torus',
+  'Box3D', 'Line3D', 'Arrow3D', 'Dot3D',
+  'Surface3D', 'ParametricSurface', 'TexturedSurface',
+  'Tetrahedron', 'Octahedron', 'Icosahedron', 'Dodecahedron',
+  'Polyhedron', 'Prism',
+  'ThreeDAxes', 'ThreeDVMobject',
+  'ConvexHull3D',
+  // graphs & functions
+  'FunctionGraph', 'ParametricFunction', 'ImplicitFunction',
+  'Graph', 'DiGraph', 'GenericGraph',
+  // coordinate systems
+  'Axes', 'NumberLine', 'NumberPlane', 'ComplexPlane',
+  'PolarPlane', 'SampleSpace',
+  // data display
+  'BarChart', 'Table', 'MathTable', 'DecimalTable', 'IntegerTable', 'MobjectTable',
+  'Matrix', 'DecimalMatrix', 'IntegerMatrix', 'MobjectMatrix',
   // text & math
-  'Text', 'MathTex', 'Paragraph', 'MarkupText',
+  'Text', 'MarkupText', 'MarkdownText', 'Paragraph', 'BulletedList', 'Title',
+  'MathTex', 'Tex', 'SingleStringMathTex', 'MathTexSVG', 'MathTexImage', 'MathTexPart',
+  'Code',
+  'TexTemplate', 'TexTemplateLibrary', 'TexFontTemplates',
+  'GlyphVMobject', 'TextGlyphGroup',
+  // numbers & variables
+  'DecimalNumber', 'Integer', 'Variable',
+  'ChangingDecimal',
   // groups
-  'VGroup', 'Group',
-  // coordinate systems & graphs
-  'Axes', 'NumberLine', 'NumberPlane', 'ComplexPlane', 'Graph',
-  'BarChart', 'Table', 'Matrix',
+  'VGroup', 'VDict', 'Group', 'PGroup',
   // value tracking
-  'ValueTracker',
-  // animations
-  'Create', 'FadeIn', 'FadeOut',
-  'Transform', 'ReplacementTransform',
+  'ValueTracker', 'ComplexValueTracker',
+  // special scenes / objects
+  'ManimBanner', 'DiceFace', 'MandelbrotSet', 'NewtonFractal',
+  'PhaseFlow', 'VectorField', 'VectorFieldVector',
+  // animations – base
+  'Animation',
+  // animations – add / remove
+  'Add', 'Remove',
+  // animations – creation/destruction
+  'Create', 'Uncreate', 'DrawBorderThenFill',
   'Write', 'Unwrite',
-  'MoveAlongPath', 'Rotate', 'Shift',
-  'AnimationGroup', 'LaggedStart', 'Succession', 'LaggedStartMap',
-  'Indicate', 'Circumscribe', 'ShowPassingFlash', 'Broadcast',
-  'ApplyMatrix', 'ApplyComplexFunction', 'ApplyPointwiseFunction',
-  // rate functions
-  'smooth', 'linear', 'easeInOutSine', 'easeOutBounce',
-  'exponentialDecay', 'lingering', 'thereAndBackWithPause', 'runningStart',
-  // colors
+  'AddTextLetterByLetter', 'RemoveTextLetterByLetter',
+  'AddTextWordByWord',
+  'TypeWithCursor', 'UntypeWithCursor',
+  'ShowCreationThenDestruction',
+  'ShowSubmobjectsOneByOne', 'ShowIncreasingSubsets', 'ShowPartial',
+  'ShowPassingFlash', 'ShowPassingFlashWithThinningStrokeWidth',
+  'Blink',
+  // animations – fade
+  'FadeIn', 'FadeOut', 'FadeToColor',
+  'FadeTransform', 'FadeTransformPieces',
+  // animations – grow/shrink
+  'GrowFromCenter', 'GrowFromEdge', 'GrowFromPoint', 'GrowArrow',
+  'ShrinkToCenter', 'SpinInFromNothing', 'SpiralIn',
+  // animations – transform
+  'Transform', 'ReplacementTransform', 'TransformFromCopy',
+  'TransformMatchingShapes', 'TransformMatchingTex', 'TransformAnimations',
+  'ClockwiseTransform', 'CounterclockwiseTransform',
+  'CyclicReplace', 'Swap',
+  'Restore', 'MoveToTarget',
+  'Scale', 'ScaleInPlace',
+  'Rotate', 'Rotating',
+  'Shift', 'MoveAlongPath', 'MoveToTargetPosition',
+  'ApplyMethod', 'ApplyFunction',
+  'ApplyMatrix', 'ApplyComplexFunction',
+  'ApplyPointwiseFunction', 'ApplyPointwiseFunctionToCenter',
+  'ApplyWave',
+  'Homotopy', 'ComplexHomotopy', 'SmoothedVectorizedHomotopy',
+  // animations – update
+  'UpdateFromFunc', 'UpdateFromAlphaFunc',
+  'ChangeDecimalToValue', 'ChangeSpeed',
+  // animations – highlighting
+  'Indicate', 'Circumscribe', 'Flash',
+  'FocusOn', 'Broadcast', 'Pulse',
+  'Wiggle', 'WiggleOutThenIn',
+  // animations – grouping
+  'AnimationGroup', 'LaggedStart', 'LaggedStartMap', 'Succession',
+  'Wait',
+  // rate functions – basic
+  'smooth', 'linear', 'doubleSmooth',
+  'thereAndBack', 'thereAndBackWithPause',
+  'rushFrom', 'rushInto', 'slowInto',
+  'exponentialDecay', 'lingering', 'runningStart', 'reverse',
+  // rate functions – ease in
+  'easeIn', 'easeInSine', 'easeInQuad', 'easeInCubic',
+  'easeInQuart', 'easeInQuint', 'easeInExpo',
+  'easeInCirc', 'easeInBack', 'easeInBounce', 'easeInElastic',
+  // rate functions – ease out
+  'easeOut', 'easeOutSine', 'easeOutQuad', 'easeOutCubic',
+  'easeOutQuart', 'easeOutQuint', 'easeOutExpo',
+  'easeOutCirc', 'easeOutBack', 'easeOutBounce', 'easeOutElastic',
+  // rate functions – ease in-out
+  'easeInOut', 'easeInOutSine', 'easeInOutQuad', 'easeInOutCubic',
+  'easeInOutQuart', 'easeInOutQuint', 'easeInOutExpo',
+  'easeInOutCirc', 'easeInOutBack', 'easeInOutBounce', 'easeInOutElastic',
+  // direction constants
+  'UP', 'DOWN', 'LEFT', 'RIGHT',
+  'UL', 'UR', 'DL', 'DR',
+  'IN', 'OUT', 'ORIGIN',
+  // colors – base
   'RED', 'GREEN', 'BLUE', 'YELLOW', 'PURPLE', 'PINK',
   'WHITE', 'BLACK', 'GRAY', 'LIGHT_GRAY', 'DARK_GRAY',
   'ORANGE', 'TEAL', 'GOLD', 'MAROON',
+  'DARK_BLUE', 'DARK_BROWN', 'LIGHT_BROWN', 'LIGHT_PINK',
+  'LIGHTER_GRAY', 'DARKER_GRAY',
+  'PURE_RED', 'PURE_GREEN', 'PURE_BLUE',
+  // colors – variants (A–E)
+  'RED_A', 'RED_B', 'RED_C', 'RED_D', 'RED_E',
+  'GREEN_A', 'GREEN_B', 'GREEN_C', 'GREEN_D', 'GREEN_E',
+  'BLUE_A', 'BLUE_B', 'BLUE_C', 'BLUE_D', 'BLUE_E',
+  'YELLOW_A', 'YELLOW_B', 'YELLOW_C', 'YELLOW_D', 'YELLOW_E',
+  'PURPLE_A', 'PURPLE_B', 'PURPLE_C', 'PURPLE_D', 'PURPLE_E',
+  'TEAL_A', 'TEAL_B', 'TEAL_C', 'TEAL_D', 'TEAL_E',
+  'GOLD_A', 'GOLD_B', 'GOLD_C', 'GOLD_D', 'GOLD_E',
+  'MAROON_A', 'MAROON_B', 'MAROON_C', 'MAROON_D', 'MAROON_E',
+  'GRAY_A', 'GRAY_B', 'GRAY_C', 'GRAY_D', 'GRAY_E',
 ];
 
 function showError(container, message) {
