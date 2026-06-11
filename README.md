@@ -43,6 +43,7 @@ await scene.wait(1);
 await scene.play(new FadeOut(circle));
 :::
 ````
+![GIF](assets/circle-fade.gif)
 
 The body is plain JavaScript. Everything from manim-web is already destructured into scope, and your code runs inside an `async` function so you can `await` every animation call.
 
@@ -112,6 +113,7 @@ new Circle({
   strokeWidth: 2,
 })
 ```
+![JPG](assets/circle-red.jpg)
 
 ### Text and math
 
@@ -157,6 +159,7 @@ const axes = new Axes({
 });
 const curve = axes.plot((x) => Math.sin(x), { color: YELLOW });
 ```
+![GIF](assets/function-plot.gif)
 
 ### Animations
 
@@ -236,6 +239,7 @@ circle.addUpdater((mob) => {
 
 await scene.play(t.animateTo(1, { duration: 2 }));
 ```
+![GIF](assets/value-tracker.gif)
 
 ### Colors
 
@@ -268,6 +272,8 @@ Control animation easing:
 
 ### Circle and fade
 
+![circle-fade](./assets/circle-fade.gif)
+
 ````
 :::{manim}
 const circle = new Circle({ color: RED, fillOpacity: 0.3 });
@@ -279,6 +285,8 @@ await scene.play(new FadeOut(circle));
 ````
 
 ### Shape morphing
+
+![shape-morphing](./assets/shape-morphing.gif)
 
 ````
 :::{manim}
@@ -294,6 +302,8 @@ await scene.wait(1);
 
 ### LaTeX equation
 
+![latex-equation](./assets/latex-equation.gif)
+
 ````
 :::{manim}
 :height: 300
@@ -306,6 +316,8 @@ await scene.wait(2);
 ````
 
 ### Function plot
+
+![function-plot](./assets/function-plot.gif)
 
 ````
 :::{manim}
@@ -324,6 +336,8 @@ await scene.wait(1);
 ````
 
 ### Staggered group entrance
+
+![staggered-group](./assets/staggered-group.gif)
 
 ````
 :::{manim}
@@ -348,6 +362,8 @@ await scene.play(new LaggedStart(
 ````
 
 ### Animated value tracker
+
+![value-tracker](./assets/value-tracker.gif)
 
 ````
 :::{manim}
