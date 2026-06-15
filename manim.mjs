@@ -19,7 +19,17 @@
  *   await scene.play(new FadeOut(circle));
  *   :::
  */
+const PLUGIN_PATH = new URL(import.meta.url).pathname;
+const WIDGET_PATH = PLUGIN_PATH.replace(/\/[^/]*$/, "/manim-widget.mjs");
 
+function relativePath(fromDir, toFile) {
+  const from = fromDir.split("/").filter(Boolean);
+  const to = toFile.split("/").filter(Boolean);
+  let i = 0;
+  while (i < from.length && i < to.length && from[i] === to[i]) i++;
+  return [...Array(from.length - i).fill(".."), ...to.slice(i)].join("/") || ".";
+}
+ 
 const manimDirective = {
   name: 'manim',
   doc: `Embed an interactive manim-web animation.
@@ -51,13 +61,16 @@ Write only the animation body — \`scene\` and all manim-web exports
     },
   },
 
-  run(data) {
+  run(data, vfile) {
     const { body, options } = data;
+    const fromDir = vfile.path.replace(/\/[^/]*$/, "");
+    const esm = relativePath(fromDir, WIDGET_PATH);
+
 
     return [
       {
         type: 'anywidget',
-        esm: './widget.mjs',
+        esm,
         model: {
           code: body,
           width: options?.width ?? 800,
