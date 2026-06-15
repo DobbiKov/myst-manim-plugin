@@ -18,7 +18,7 @@ version: 1
 project:
   title: My Project
   plugins:
-    - plugin.mjs
+    - manim.mjs
 ```
 
 Then run:
