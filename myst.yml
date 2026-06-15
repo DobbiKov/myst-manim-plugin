@@ -4,7 +4,7 @@ project:
   authors: [Yehor Korotenko]
   github: https://github.com/DobbiKov/myst-manim-plugin
   plugins:
-    - plugin.mjs
+    - manim.mjs
   toc:
     - file: README.md
       name: MyST Manim Extension
