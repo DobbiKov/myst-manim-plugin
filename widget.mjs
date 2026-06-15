@@ -22,6 +22,10 @@ const MANIM_EXPORTS = [
   'LinearTransformationScene', 'VectorScene', 'InteractiveScene',
   // interactive controls
   'Controls', 'OrbitControls',
+  // drag & interaction utilities
+  'makeDraggable', 'Draggable',
+  'makeHoverable', 'Hoverable',
+  'makeClickable', 'Clickable',
   // base mobjects
   'Mobject', 'Mobject1D', 'Mobject2D',
   'VMobject', 'VMobjectFromSVGPath', 'VectorizedPoint',
@@ -189,6 +193,7 @@ export default {
     const width = model.get('width');
     const height = model.get('height');
     const backgroundColor = model.get('backgroundColor');
+    const sceneType = model.get('sceneType') ?? 'Scene';
 
     // ── Container ────────────────────────────────────────────────────────────
     const container = document.createElement('div');
@@ -211,8 +216,8 @@ export default {
     }
 
     // ── Boot scene ───────────────────────────────────────────────────────────
-    const { Scene } = ManimWeb;
-    const scene = new Scene(container, { width, height, backgroundColor });
+    const SceneClass = ManimWeb[sceneType] ?? ManimWeb.Scene;
+    const scene = new SceneClass(container, { width, height, backgroundColor });
 
     // ── Destructure all exports for user code ─────────────────────────────────
     const scope = {};

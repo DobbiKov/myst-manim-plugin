@@ -45,6 +45,10 @@ Write only the animation body — \`scene\` and all manim-web exports
       type: String,
       doc: "Background color as a CSS hex string, e.g. '#1e1e2e' (default: '#000000').",
     },
+    scene: {
+      type: String,
+      doc: "Scene class to use: 'Scene' (default) or 'ThreeDScene' for 3D with orbit controls.",
+    },
   },
 
   run(data) {
@@ -59,6 +63,7 @@ Write only the animation body — \`scene\` and all manim-web exports
           width: options?.width ?? 800,
           height: options?.height ?? 450,
           backgroundColor: options?.['background-color'] ?? '#000000',
+          sceneType: options?.scene ?? 'Scene',
         },
       },
     ];
