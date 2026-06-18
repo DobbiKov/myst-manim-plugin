@@ -5,6 +5,7 @@ project:
   github: https://github.com/DobbiKov/myst-manim-plugin
   plugins:
     - manim.mjs
+    - demo.mjs
   toc:
     - file: README.md
       name: MyST Manim Extension
