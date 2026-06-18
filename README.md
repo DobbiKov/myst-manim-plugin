@@ -4,10 +4,13 @@ A [MyST](https://mystmd.org) plugin that lets you embed interactive
 [manim-web](https://github.com/maloyan/manim-web) animations directly in your
 documents.
 
+
 You write only the animation logic. The `scene` object, all shapes, animations,
 colors, and rate functions are already in scope — no imports, no boilerplate.
 
 See some examples of animations and the code [here](https://dobbikov.github.io/myst-manim-plugin/).
+
+> This plugin was presented and contributed to `myst-plugins` during #myst-education-2026.
 
 ## Installation
 
