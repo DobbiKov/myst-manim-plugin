@@ -206,43 +206,61 @@ export default {
     `;
     el.appendChild(container);
 
-    // ── Load manim-web ────────────────────────────────────────────────────────
-    let ManimWeb;
-    try {
-      ManimWeb = await import(MANIM_CDN);
-    } catch (err) {
-      showError(container, `Failed to load manim-web from CDN.\n${err.message}`);
-      return;
+    // ── Load manim-web eagerly (network fetch, independent of visibility) ──────
+    const manimWebPromise = import(MANIM_CDN).catch(err => ({ __error: err }));
+
+    // ── Run animation (called once when container enters viewport) ────────────
+    let scene = null;
+
+    async function startAnimation() {
+      const ManimWeb = await manimWebPromise;
+      if (ManimWeb.__error) {
+        showError(container, `Failed to load manim-web from CDN.\n${ManimWeb.__error.message}`);
+        return;
+      }
+
+      // ── Boot scene ─────────────────────────────────────────────────────────
+      const SceneClass = ManimWeb[sceneType] ?? ManimWeb.Scene;
+      scene = new SceneClass(container, { width, height, backgroundColor });
+
+      // ── Destructure all exports for user code ──────────────────────────────
+      const scope = {};
+      for (const name of MANIM_EXPORTS) {
+        if (name in ManimWeb) scope[name] = ManimWeb[name];
+      }
+
+      // ── Run user animation ─────────────────────────────────────────────────
+      // We build an async function whose parameters are all the manim-web names
+      // so the user can reference them without any import statement.
+      try {
+        const fn = new Function(
+          'scene',
+          ...Object.keys(scope),
+          `"use strict"; return (async () => { ${code} })();`
+        );
+        await fn(scene, ...Object.values(scope));
+      } catch (err) {
+        console.error('[manim-web]', err);
+        showError(container, err.message);
+      }
     }
 
-    // ── Boot scene ───────────────────────────────────────────────────────────
-    const SceneClass = ManimWeb[sceneType] ?? ManimWeb.Scene;
-    const scene = new SceneClass(container, { width, height, backgroundColor });
-
-    // ── Destructure all exports for user code ─────────────────────────────────
-    const scope = {};
-    for (const name of MANIM_EXPORTS) {
-      if (name in ManimWeb) scope[name] = ManimWeb[name];
-    }
-
-    // ── Run user animation ────────────────────────────────────────────────────
-    // We build an async function whose parameters are all the manim-web names
-    // so the user can reference them without any import statement.
-    try {
-      const fn = new Function(
-        'scene',
-        ...Object.keys(scope),
-        `"use strict"; return (async () => { ${code} })();`
-      );
-      await fn(scene, ...Object.values(scope));
-    } catch (err) {
-      console.error('[manim-web]', err);
-      showError(container, err.message);
-    }
+    // ── Intersection Observer — play only when visible ────────────────────────
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (entries[0].isIntersecting) {
+          obs.disconnect();
+          startAnimation();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(container);
 
     // ── Cleanup ───────────────────────────────────────────────────────────────
     return () => {
-      scene.dispose?.();
+      observer.disconnect();
+      scene?.dispose?.();
       container.remove();
     };
   },
