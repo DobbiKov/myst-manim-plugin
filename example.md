@@ -9,6 +9,8 @@ This document provides examples of manim animations and their syntax in myst doc
 
 ::::{myst:demo}
 :::{manim}
+:show-player: true
+
 const circle = new Circle({ color: RED, fillOpacity: 0.3 });
 scene.add(circle);
 await scene.play(new Create(circle));
