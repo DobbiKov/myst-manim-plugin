@@ -19,6 +19,9 @@
  *   await scene.play(new FadeOut(circle));
  *   :::
  */
+import fs from 'fs';
+import path from 'path';
+
 const PLUGIN_PATH = new URL(import.meta.url).pathname;
 const WIDGET_PATH = PLUGIN_PATH.replace(/\/[^/]*$/, "/manim-widget.mjs");
 
@@ -38,8 +41,7 @@ Write only the animation body — \`scene\` and all manim-web exports
 
   body: {
     type: String,
-    required: true,
-    doc: 'Animation code. `scene` plus all manim-web exports are pre-imported.',
+    doc: 'Animation code. `scene` plus all manim-web exports are pre-imported. Omit when using `:file:`.',
   },
 
   options: {
@@ -59,6 +61,10 @@ Write only the animation body — \`scene\` and all manim-web exports
       type: String,
       doc: "Scene class to use: 'Scene' (default) or 'ThreeDScene' for 3D with orbit controls.",
     },
+    file: {
+      type: String,
+      doc: 'Path to a .js file containing the animation code, relative to the document. When set, the directive body is ignored.',
+    },
   },
 
   run(data, vfile) {
@@ -66,13 +72,26 @@ Write only the animation body — \`scene\` and all manim-web exports
     const fromDir = vfile.path.replace(/\/[^/]*$/, "");
     const esm = relativePath(fromDir, WIDGET_PATH);
 
+    let code = body ?? '';
+    if (options?.file) {
+      const filePath = path.resolve(fromDir, options.file);
+      try {
+        code = fs.readFileSync(filePath, 'utf8');
+      } catch (err) {
+        vfile.message(`manim: could not read file "${options.file}": ${err.message}`, data.node);
+      }
+    }
+
+    if (!code.trim()) {
+      vfile.message('manim: no animation code provided (use directive body or :file: option)', data.node);
+    }
 
     return [
       {
         type: 'anywidget',
         esm,
         model: {
-          code: body,
+          code,
           width: options?.width ?? 800,
           height: options?.height ?? 450,
           backgroundColor: options?.['background-color'] ?? '#000000',
