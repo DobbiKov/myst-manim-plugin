@@ -14,7 +14,7 @@ See some examples of animations and the code [here](https://dobbikov.github.io/m
 
 ## Installation
 
-Copy **both** `plugin.mjs` and `widget.mjs` into your project and register the plugin in `myst.yml`:
+Copy **both** `manim.mjs` and `manim-widget.mjs` into your project and register the plugin in `myst.yml`:
 
 ```yaml
 version: 1
