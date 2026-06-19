@@ -65,6 +65,10 @@ Write only the animation body — \`scene\` and all manim-web exports
       type: String,
       doc: 'Path to a .js file containing the animation code, relative to the document. When set, the directive body is ignored.',
     },
+    'show-player': {
+      type: Boolean,
+      doc: 'When true, renders a player bar below the animation with play/pause, restart, and a seekable progress bar.',
+    },
   },
 
   run(data, vfile) {
@@ -96,6 +100,7 @@ Write only the animation body — \`scene\` and all manim-web exports
           height: options?.height ?? 450,
           backgroundColor: options?.['background-color'] ?? '#000000',
           sceneType: options?.scene ?? 'Scene',
+          showPlayer: options?.['show-player'] ?? false,
         },
       },
     ];
