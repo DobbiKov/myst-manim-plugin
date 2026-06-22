@@ -14,6 +14,8 @@ See some examples of animations and the code [here](https://dobbikov.github.io/m
 
 ## Installation
 
+### MyST HTML / Jupyter Book
+
 Copy **both** `manim.mjs` and `manim-widget.mjs` into your project and register the plugin in `myst.yml`:
 
 ```yaml
@@ -32,8 +34,20 @@ myst start
 
 No npm install needed — manim-web is loaded from a CDN at render time.
 
+### Jupyter Notebooks (JupyterLab / Google Colab)
+
+Install the Python package directly from GitHub:
+
+```python
+!pip install "myst-manim-widget @ git+https://github.com/DobbiKov/myst-manim-plugin.git"
+```
+
+No other dependencies — the package only requires `ipython`, which is already present in every Jupyter environment.
+
 
 ## Usage
+
+### MyST / Jupyter Book
 
 Use the `manim` directive in any `.md` file:
 
@@ -50,17 +64,49 @@ await scene.play(new FadeOut(circle));
 
 The body is plain JavaScript. Everything from manim-web is already destructured into scope, and your code runs inside an `async` function so you can `await` every animation call.
 
+### Jupyter Notebooks
+
+Import the package once — this automatically registers the `%%manim` cell magic:
+
+```python
+import myst_manim_widget
+```
+
+Then use `%%manim` at the top of any code cell:
+
+```
+%%manim
+const circle = new Circle({ color: RED, fillOpacity: 0.3 });
+scene.add(circle);
+await scene.play(new Create(circle));
+await scene.wait(1);
+await scene.play(new FadeOut(circle));
+```
+
+Options are passed as flags on the same line as `%%manim`:
+
+```
+%%manim --width 800 --height 450 --background-color '#1e1e2e' --show-player
+const sq = new Square({ color: BLUE, fillOpacity: 0.5 });
+await scene.play(new Create(sq));
+await scene.play(new Rotate(sq, Math.PI));
+```
+
+The animation code body is identical to the MyST directive — same JavaScript, same scope, same `scene` object.
+
 ---
 
 ## Options
 
 All options are optional.
 
-| Option | Type | Default | Description |
+| Option (MyST) | Option (Jupyter) | Default | Description |
 |---|---|---|---|
-| `width` | number | `800` | Canvas width in pixels |
-| `height` | number | `450` | Canvas height in pixels |
-| `background-color` | string | `#000000` | Background color as a CSS hex value |
+| `width` | `--width` | `800` | Canvas width in pixels |
+| `height` | `--height` | `450` | Canvas height in pixels |
+| `background-color` | `--background-color` | `#000000` | Background color as a CSS hex value |
+| `scene` | `--scene` | `Scene` | Scene class: `Scene` or `ThreeDScene` |
+| `show-player` | `--show-player` | off | Render a play/pause/seek bar below the animation |
 
 ```
 :::{manim}
