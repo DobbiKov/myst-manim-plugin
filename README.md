@@ -113,10 +113,26 @@ All options are optional.
 :width: 1000
 :height: 500
 :background-color: #1e1e2e
+:show-player: true
 
 // your animation code
 :::
 ```
+
+### Animation player
+
+When `:show-player: true` is set, a control bar appears below the canvas:
+
+| Control | Action |
+|---|---|
+| **⟳** | Restart the animation from the beginning |
+| **⏸ / ▶** | Pause or resume playback |
+| Progress bar | Shows elapsed / total time; click anywhere to seek to that position |
+| Drag | Hold and drag the progress bar to scrub through the animation |
+
+Seeking works by restarting the scene and fast-forwarding through all animation calls that fall before the target time. The total duration is learned from the first complete run, so the seek bar becomes fully accurate after the animation plays through once.
+
+> **Note:** Pause takes effect between `scene.play()` / `scene.wait()` calls, not mid-frame. Very long single animations will only pause once they finish playing.
 
 ---
 
@@ -428,6 +444,25 @@ circle.addUpdater(() => {
 await scene.play(new Create(circle));
 await scene.play(tracker.animateTo(1, { duration: 2 }));
 await scene.wait(1);
+:::
+````
+
+### Animation with player controls
+
+````
+:::{manim}
+:show-player: true
+:background-color: '#1e1e2e'
+
+const circle = new Circle({ color: BLUE, fillOpacity: 0.4 });
+const square = new Square({ sideLength: 2, color: YELLOW, fillOpacity: 0.4 });
+scene.add(circle);
+
+await scene.play(new Create(circle));
+await scene.wait(0.5);
+await scene.play(new Transform(circle, square));
+await scene.wait(0.5);
+await scene.play(new FadeOut(square));
 :::
 ````
 
