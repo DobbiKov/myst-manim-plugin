@@ -5,7 +5,7 @@ from .widget import ManimWidget
 
 
 class ManimDirective(Directive):
-    """MyST/RST directive that renders a manim-web animation as a Jupyter widget.
+    """MyST/RST directive that renders a manim-web animation.
 
     Usage in a notebook markdown cell (requires myst-nb)::
 
@@ -36,7 +36,7 @@ class ManimDirective(Directive):
     def run(self):
         code = "\n".join(self.content)
 
-        widget = ManimWidget(
+        html_widget = ManimWidget(
             code=code,
             width=self.options.get("width", 800),
             height=self.options.get("height", 450),
@@ -45,16 +45,10 @@ class ManimDirective(Directive):
             showPlayer="show-player" in self.options,
         )
 
-        # Emit the widget as a raw HTML node so sphinx/myst-nb can embed it.
-        # In a live Jupyter kernel context, display() also fires and shows the
-        # widget inline in the output area.
         try:
             from IPython.display import display
-            display(widget)
+            display(html_widget)
         except Exception:
             pass
 
-        # Return an empty node list — the display() call handles output in
-        # Jupyter; for static HTML builds this produces no output (the JS
-        # plugin handles those via manim.mjs).
         return []

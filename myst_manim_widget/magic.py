@@ -17,7 +17,7 @@ import argparse
 from IPython.core.magic import register_cell_magic
 from IPython.display import display
 
-from .widget import ManimWidget
+from .widget import ManimWidget  # returns IPython.display.HTML
 
 
 _parser = argparse.ArgumentParser(prog="%%manim", add_help=False)

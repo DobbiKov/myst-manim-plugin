@@ -11,8 +11,7 @@ license = { text = "MIT" }
 authors = [{ name = "Yehor Korotenko" }]
 requires-python = ">=3.9"
 dependencies = [
-    "anywidget>=0.9",
-    "traitlets>=5",
+    "ipython>=7",
 ]
 
 [project.optional-dependencies]
